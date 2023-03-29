@@ -3,7 +3,7 @@
 
 #define FILENAME "sirb.svg"
 
-FILE *file;
+static FILE *file;
 
 static double o; // Rhombus opening angle
 static double a; // Rhombus acute angle
