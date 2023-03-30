@@ -11,7 +11,7 @@ static double s; // Rhombus side
 static double d; // Rhombus diagonal that bisects a
 static double l; // Coordinate limit
 
-static double shoulders[4];
+static double shoulder1x, shoulder1y, shoulder2x, shoulder2y;
 
 void rhombus(double x, double y, double direction, _Bool set_shoulders) {
   double vertex2x = x + cos(direction + o) * s;
@@ -28,10 +28,10 @@ void rhombus(double x, double y, double direction, _Bool set_shoulders) {
     x, -y, vertex2x, -vertex2y, vertex3x, -vertex3y, vertex4x, -vertex4y);
 
   if (set_shoulders) {
-    shoulders[0] = vertex2x;
-    shoulders[1] = vertex2y;
-    shoulders[2] = vertex4x;
-    shoulders[3] = vertex4y;
+    shoulder1x = vertex2x;
+    shoulder1y = vertex2y;
+    shoulder2x = vertex4x;
+    shoulder2y = vertex4y;
   }
 }
 
@@ -58,8 +58,8 @@ int main(void) {
 
   for (int bird = 0; bird < 6; ++bird) {
     rhombus(cos(direction - a) * d, sin(direction - a) * d, direction, 1);
-    rhombus(shoulders[0], shoulders[1], direction + 2 * M_PI / 3, 0);
-    rhombus(shoulders[2], shoulders[3], direction - 2 * M_PI / 3, 0);
+    rhombus(shoulder1x, shoulder1y, direction + 2 * M_PI / 3, 0);
+    rhombus(shoulder2x, shoulder2y, direction - 2 * M_PI / 3, 0);
 
     direction += M_PI / 3;
   }
