@@ -70,5 +70,6 @@ int main(void) {
   }
 
   fputs("</svg>\n", file);
+  fclose(file);
   printf("Wrote %s\n", FILENAME);
 }
