@@ -54,14 +54,19 @@ int main(void) {
     "  <rect x='%g' y='%g' width='100%%' height='100%%' fill='black'/>\n",
     -l, -l, 2 * l, 2 * l, -l, -l);
 
-  double direction = a;
+  int birds = 6;
+  double angle = 0;
+  double direction = angle + a;
+  double rotation = 2 * M_PI / birds;
+  double wing_offset = 2 * M_PI / 3;
 
-  for (int bird = 0; bird < 6; ++bird) {
-    rhombus(cos(direction - a) * d, sin(direction - a) * d, direction, 1);
-    rhombus(shoulder1x, shoulder1y, direction + 2 * M_PI / 3, 0);
-    rhombus(shoulder2x, shoulder2y, direction - 2 * M_PI / 3, 0);
+  while (birds--) {
+    rhombus(cos(angle) * d, sin(angle) * d, direction, 1);
+    rhombus(shoulder1x, shoulder1y, direction + wing_offset, 0);
+    rhombus(shoulder2x, shoulder2y, direction - wing_offset, 0);
 
-    direction += M_PI / 3;
+    angle += rotation;
+    direction += rotation;
   }
 
   fputs("</svg>\n", file);
