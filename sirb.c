@@ -13,7 +13,7 @@ static double l; // Coordinate limit
 
 static double shoulder1x, shoulder1y, shoulder2x, shoulder2y;
 
-void rhombus(double x, double y, double direction, _Bool set_shoulders) {
+static void rhombus(double x, double y, double direction, _Bool set_shoulders) {
   double vertex2x = x + cos(direction + o) * s;
   double vertex2y = y + sin(direction + o) * s;
 
