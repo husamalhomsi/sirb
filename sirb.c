@@ -38,7 +38,7 @@ static void rhombus(double x, double y, double direction, _Bool set_shoulders) {
 int main(void) {
   o = M_PI / 12;
   a = 2 * o;
-  s = 2;
+  s = 1;
   d = 2 * cos(o) * s;
   l = 4 * s;
 
