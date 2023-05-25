@@ -1,6 +1,9 @@
 #include <math.h>
 #include <stdio.h>
 
+// Full-turn in radians
+#define TAU 6.28318530717958647692
+
 #define FILENAME "sirb.svg"
 
 static FILE *file;
@@ -36,7 +39,7 @@ static void rhombus(double x, double y, double direction, _Bool set_shoulders) {
 }
 
 int main(void) {
-  o = M_PI / 12;
+  o = TAU / 24;
   a = 2 * o;
   s = 1;
   d = 2 * cos(o) * s;
@@ -57,8 +60,8 @@ int main(void) {
   int birds = 6;
   double angle = 0;
   double direction = angle + a;
-  double rotation = 2 * M_PI / birds;
-  double wing_offset = 2 * M_PI / 3;
+  double rotation = TAU / birds;
+  double wing_offset = TAU / 3;
 
   while (birds--) {
     rhombus(cos(angle) * d, sin(angle) * d, direction, 1);
