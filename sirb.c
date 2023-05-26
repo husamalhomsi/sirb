@@ -1,15 +1,15 @@
 #include <math.h>
 #include <stdio.h>
 
-// Full-turn in radians
+// Full angle in radians
 #define TAU 6.28318530717958647692
 
 #define FILENAME "sirb.svg"
 
 static FILE *file;
 
-static double o; // Rhombus opening angle
 static double a; // Rhombus acute angle
+static double o; // Rhombus opening angle
 static double s; // Rhombus side
 static double d; // Rhombus diagonal that bisects a
 static double l; // Coordinate limit
@@ -39,8 +39,8 @@ static void rhombus(double x, double y, double direction, _Bool set_shoulders) {
 }
 
 int main(void) {
-  o = TAU / 24;
-  a = 2 * o;
+  a = TAU / 12;
+  o = a / 2;
   s = 1;
   d = 2 * cos(o) * s;
   l = 4 * s;
