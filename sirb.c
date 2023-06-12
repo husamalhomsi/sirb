@@ -1,10 +1,16 @@
+// sirb.c - write sirb to an SVG file
+
 #include <math.h>
 #include <stdio.h>
 
 // Full angle in radians
 #define TAU 6.28318530717958647692
 
-#define FILENAME "sirb.svg"
+typedef struct point {
+  double x, y;
+} point;
+
+static point left_shoulder, right_shoulder;
 
 static FILE *file;
 
@@ -14,27 +20,32 @@ static double s; // Rhombus side
 static double d; // Rhombus diagonal that bisects a
 static double l; // Coordinate limit
 
-static double shoulder1x, shoulder1y, shoulder2x, shoulder2y;
+static void rhombus(point base_vertex, double direction, _Bool set_shoulders) {
+  point left_vertex = {
+    base_vertex.x + cos(direction + o) * s,
+    base_vertex.y + sin(direction + o) * s
+  };
 
-static void rhombus(double x, double y, double direction, _Bool set_shoulders) {
-  double vertex2x = x + cos(direction + o) * s;
-  double vertex2y = y + sin(direction + o) * s;
+  point right_vertex = {
+    base_vertex.x + cos(direction - o) * s,
+    base_vertex.y + sin(direction - o) * s
+  };
 
-  double vertex4x = x + cos(direction - o) * s;
-  double vertex4y = y + sin(direction - o) * s;
-
-  double vertex3x = x + cos(direction) * d;
-  double vertex3y = y + sin(direction) * d;
+  point apex_vertex = {
+    base_vertex.x + cos(direction) * d,
+    base_vertex.y + sin(direction) * d
+  };
 
   fprintf(file,
     "  <polygon points='%+f,%+f %+f,%+f %+f,%+f %+f,%+f'/>\n",
-    x, -y, vertex2x, -vertex2y, vertex3x, -vertex3y, vertex4x, -vertex4y);
+    base_vertex.x,  -base_vertex.y,
+    left_vertex.x,  -left_vertex.y,
+    apex_vertex.x,  -apex_vertex.y,
+    right_vertex.x, -right_vertex.y);
 
   if (set_shoulders) {
-    shoulder1x = vertex2x;
-    shoulder1y = vertex2y;
-    shoulder2x = vertex4x;
-    shoulder2y = vertex4y;
+    left_shoulder = left_vertex;
+    right_shoulder = right_vertex;
   }
 }
 
@@ -45,7 +56,7 @@ int main(void) {
   d = 2 * cos(o) * s;
   l = 4 * s;
 
-  file = fopen(FILENAME, "w");
+  file = fopen("sirb.svg", "w");
 
   if (!file)
     return 1;
@@ -64,9 +75,14 @@ int main(void) {
   double wing_offset = TAU / 3;
 
   while (birds--) {
-    rhombus(cos(angle) * d, sin(angle) * d, direction, 1);
-    rhombus(shoulder1x, shoulder1y, direction + wing_offset, 0);
-    rhombus(shoulder2x, shoulder2y, direction - wing_offset, 0);
+    point tail = {
+      cos(angle) * d,
+      sin(angle) * d
+    };
+
+    rhombus(tail,           direction,               1); // Torso
+    rhombus(left_shoulder,  direction + wing_offset, 0); // Left wing
+    rhombus(right_shoulder, direction - wing_offset, 0); // Right wing
 
     angle += rotation;
     direction += rotation;
@@ -74,5 +90,4 @@ int main(void) {
 
   fputs("</svg>\n", file);
   fclose(file);
-  printf("Wrote %s\n", FILENAME);
 }
