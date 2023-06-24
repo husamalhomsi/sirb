@@ -80,7 +80,7 @@ int main(void) {
       sin(angle) * d
     };
 
-    rhombus(tail,           direction,               1); // Torso
+    rhombus(tail, direction, 1); // Torso
     rhombus(left_shoulder,  direction + wing_offset, 0); // Left wing
     rhombus(right_shoulder, direction - wing_offset, 0); // Right wing
 
