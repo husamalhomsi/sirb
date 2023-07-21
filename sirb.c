@@ -75,10 +75,7 @@ int main(void) {
   double wing_offset = TAU / 3;
 
   while (birds--) {
-    point tail = {
-      cos(angle) * d,
-      sin(angle) * d
-    };
+    point tail = {cos(angle) * d, sin(angle) * d};
 
     rhombus(tail, direction, 1); // Torso
     rhombus(left_shoulder,  direction + wing_offset, 0); // Left wing
