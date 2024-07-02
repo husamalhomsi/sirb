@@ -9,5 +9,5 @@ The files in here are:
     This file.
 
   sirb.c
-    A C program that writes sirb to an SVG file. It only depends on the C
+    A C program that writes Sirb to an SVG file. It only depends on the C
     standard library.

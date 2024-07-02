@@ -1,4 +1,4 @@
-// sirb.c - write sirb to an SVG file
+// sirb.c - write Sirb to an SVG file
 
 #include <math.h>
 #include <stdio.h>
