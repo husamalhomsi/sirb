@@ -8,6 +8,6 @@ The files in here are:
   README.txt
     This file.
 
-  sirb.c
+  sirb-svg.c
     A C program that writes Sirb to an SVG file. It only depends on the C
     standard library.
